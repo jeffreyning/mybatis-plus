@@ -68,6 +68,12 @@ public class MicroPageInterceptor implements Interceptor {
 			return invocation.proceed();
 		}
 		PageInfo pageInfo = (PageInfo) rowBounds;
+		if(pageInfo.getOffset()<1){
+			throw new RuntimeException("pageNo < 1");
+		}
+		if(pageInfo.getLimit()<1){
+			throw new RuntimeException("pageRows < 1");
+		}		
 		if (args.length == 4) {
 			// 4 个参数时
 			boundSql = ms.getBoundSql(parameter);
@@ -123,6 +129,11 @@ public class MicroPageInterceptor implements Interceptor {
 	}
 
 	private String getPageSql(PageInfo pageInfo, String sql) {
+		String orderStr=pageInfo.getOrderStr();
+		if(orderStr!=null && !"".equals(orderStr)){
+			sql=sql+" order by "+orderStr+" ";
+		}
+		
 		StringBuffer sqlBuffer = new StringBuffer(sql);
 		if ("mysql".equalsIgnoreCase(dialect) || dialect == null
 				|| "".equals(dialect)) {
@@ -134,8 +145,11 @@ public class MicroPageInterceptor implements Interceptor {
 	}
 
 	private String getMysqlPageSql(PageInfo pageInfo, StringBuffer sqlBuffer) {
-		int offset = pageInfo.getOffset();
+		int pageNo=pageInfo.getOffset();
+		int pageRows=pageInfo.getLimit();
+		int offset = (pageNo-1)*pageRows;
 		int limit = pageInfo.getLimit();
+		
 		sqlBuffer.append(" limit ").append(offset).append(",").append(limit);
 		return sqlBuffer.toString();
 
@@ -143,8 +157,11 @@ public class MicroPageInterceptor implements Interceptor {
 
 	private String getOraclePageSql(PageInfo pageInfo, StringBuffer sqlBuffer) {
 		// rownum start 1
-		int offset = pageInfo.getOffset() + 1;
+		int pageNo=pageInfo.getOffset();
+		int pageRows=pageInfo.getLimit();		
+		int offset = (pageNo-1)*pageRows + 1;
 		int limit = pageInfo.getLimit();
+		
 		sqlBuffer.insert(0, "select NHPAGE_TEMP.*, rownum NHPAGE_RN from (")
 				.append(") NHPAGE_TEMP where rownum < ").append(offset + limit);
 		sqlBuffer.insert(0, "select * from (").append(") where NHPAGE_RN >= ")

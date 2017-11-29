@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.jeffreyning</groupId>
 	<artifactId>mybatis-plus-page</artifactId>
-	<version>1.0.1-RELEASE</version>
+	<version>1.0.2-RELEASE</version>
 
 
 	<name>com.github.jeffreyning:mybatis-plus-page</name>
 	<description>mybatis-plus-page</description>
 	<url>https://github.com/jeffreyning/mybatis-plus</url>
 	<properties>
-		<project.release.version>1.0.1-RELEASE</project.release.version>
+		<project.release.version>1.0.2-RELEASE</project.release.version>
 	</properties>
 
 
