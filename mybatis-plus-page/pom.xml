@@ -110,6 +110,11 @@
 							</goals>
 						</execution>
 					</executions>
+			        <configuration>
+			        <encoding>UTF-8</encoding>
+			        <charset>UTF-8</charset>
+			        <extdirs>${project.basedir}/lib</extdirs>
+			    	</configuration>					
 				</plugin> 
 			</plugins>
 

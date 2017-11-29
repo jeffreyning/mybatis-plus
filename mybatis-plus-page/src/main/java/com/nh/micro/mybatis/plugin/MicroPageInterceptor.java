@@ -22,19 +22,20 @@ import org.apache.ibatis.session.RowBounds;
 import java.util.Map;
 import java.util.Map.Entry;
 
-@Intercepts({
-		@Signature(type = Executor.class, method = "query", args = {
-				MappedStatement.class, Object.class, RowBounds.class,
-				ResultHandler.class }),
-		@Signature(type = Executor.class, method = "query", args = {
-				MappedStatement.class, Object.class, RowBounds.class,
-				ResultHandler.class, CacheKey.class, BoundSql.class })
-		})
 /**
  * 
  * @author ninghao
  *
  */
+
+@Intercepts({
+	@Signature(type = Executor.class, method = "query", args = {
+			MappedStatement.class, Object.class, RowBounds.class,
+			ResultHandler.class }),
+	@Signature(type = Executor.class, method = "query", args = {
+			MappedStatement.class, Object.class, RowBounds.class,
+			ResultHandler.class, CacheKey.class, BoundSql.class })
+	})
 public class MicroPageInterceptor implements Interceptor {
 
 	private String dialect = null;
