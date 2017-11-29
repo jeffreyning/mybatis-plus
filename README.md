@@ -12,6 +12,7 @@ MicroPageInterceptor特点：
 
 
 Spring中配置mybatis分页插件MicroPageInterceptor
+com.minxin.micro.mybatis.plugin.MicroPageInterceptor
 建议在sqlSessionFactory中配置，可以根据sqlSessionFactory是oracle还是mysql配置插件的dialect属性
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
